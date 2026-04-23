@@ -1,4 +1,4 @@
-module tyupin.dev
+module tyupin-dev
 
 go 1.26
 

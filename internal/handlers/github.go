@@ -9,10 +9,10 @@ import (
 	"strings"
 	"time"
 
-	"tyupin.dev/internal/client"
-	"tyupin.dev/internal/lib/cache"
-	"tyupin.dev/internal/lib/utils"
-	"tyupin.dev/internal/models"
+	"tyupin-dev/internal/client"
+	"tyupin-dev/internal/lib/cache"
+	"tyupin-dev/internal/lib/utils"
+	"tyupin-dev/internal/models"
 )
 
 var (
