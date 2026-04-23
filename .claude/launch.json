@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Go backend (chi)",
+      "runtimeExecutable": "go",
+      "runtimeArgs": ["run", "./cmd/main/main.go"],
+      "port": 8080
+    }
+  ]
+}

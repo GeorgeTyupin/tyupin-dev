@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Тюпин Георгий — Go Developer</title>
+<meta name="description" content="Backend Go-разработчик, 4 года опыта. Москва.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="/static/css/style.css?v=4">
+</head>
+<body>
+
+<!-- Nav -->
+<nav id="nav">
+  <button class="nav-logo" onclick="navScrollTo('hero')">tyupin<span>-dev.ru</span></button>
+  <div class="nav-links">
+    <button class="nav-link active" data-section="hero"      onclick="navScrollTo('hero')">О себе</button>
+    <button class="nav-link"        data-section="about"     onclick="navScrollTo('about')">Опыт</button>
+    <button class="nav-link"        data-section="github"    onclick="navScrollTo('github')">Активность</button>
+    <button class="nav-link"        data-section="projects"  onclick="navScrollTo('projects')">Проекты</button>
+    <button class="nav-link"        data-section="skills"    onclick="navScrollTo('skills')">Навыки</button>
+    <button class="nav-link"        data-section="education" onclick="navScrollTo('education')">Образование</button>
+  </div>
+  <div class="nav-end">
+    <a href="https://t.me/georgetyupin" target="_blank" class="nav-cta">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      Связаться
+    </a>
+    <button class="nav-burger" id="nav-burger" aria-label="Открыть меню" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="nav-mobile" id="nav-mobile" aria-hidden="true">
+  <button class="nav-mobile-link" data-section="hero"      onclick="mobileScrollTo('hero')">О себе</button>
+  <button class="nav-mobile-link" data-section="about"     onclick="mobileScrollTo('about')">Опыт</button>
+  <button class="nav-mobile-link" data-section="github"    onclick="mobileScrollTo('github')">Активность</button>
+  <button class="nav-mobile-link" data-section="projects"  onclick="mobileScrollTo('projects')">Проекты</button>
+  <button class="nav-mobile-link" data-section="skills"    onclick="mobileScrollTo('skills')">Навыки</button>
+  <button class="nav-mobile-link" data-section="education" onclick="mobileScrollTo('education')">Образование</button>
+  <a href="https://t.me/georgetyupin" target="_blank" class="nav-mobile-cta">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    Связаться
+  </a>
+</div>
+
+<!-- Hero -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-left" id="hero-left">
+      <div class="hero-badge"><span class="hero-badge-dot"></span>Открыт к предложениям</div>
+      <div class="hero-name">Тюпин Георгий</div>
+      <div class="hero-role">Go Developer</div>
+      <p class="hero-desc">Занимаюсь бэкендом с 16 лет, целенаправленно изучаю Go уже полтора года: микросервисы, REST API, чистая архитектура, конкурентность.</p>
+      <div class="hero-btns">
+        <a href="https://t.me/georgetyupin" target="_blank" class="btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Написать
+        </a>
+        <a href="mailto:tyupin.georgy@gmail.com" class="btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Email
+        </a>
+        <a href="https://github.com/GeorgeTyupin" target="_blank" class="btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+      </div>
+      <div class="hero-meta">
+        <span class="hero-meta-item">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Москва, Россия
+        </span>
+        <span class="hero-meta-item">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+          Go · Python · PostgreSQL
+        </span>
+        <span class="hero-meta-item">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          МАИ, 2 курс
+        </span>
+      </div>
+    </div>
+
+    <!-- Hero right: фото + код + статистика -->
+    <div class="hero-right">
+      <!-- Верхняя строка: фото | код -->
+      <div class="hero-panels">
+        <div class="photo-card">
+          <img src="/static/img/photo-portrait.png" alt="Тюпин Георгий">
+          <div class="photo-overlay"></div>
+          <div class="photo-caption">
+            <div class="photo-caption-name">Тюпин Георгий</div>
+            <div class="photo-caption-role">Go Developer · Москва</div>
+          </div>
+        </div>
+        <div class="code-card hero-code-card">
+          <div class="code-card-bar">
+            <div class="dot" style="background:#EF4444"></div>
+            <div class="dot" style="background:#F59E0B"></div>
+            <div class="dot" style="background:#3DBA76"></div>
+            <span class="code-filename">developer.go</span>
+          </div>
+          <div class="code-body">
+            <span class="kw">func</span> <span class="fn">main</span>() {<br>
+            <span class="ind1">hire(<span class="ty">Developer</span>{</span><br>
+            <span class="ind2"><span class="dm">OpenTo: </span><span class="st">"новая позиция"</span>,</span><br>
+            <span class="ind2"><span class="dm">Stack:  </span><span class="st">"Go, PG, Docker"</span>,</span><br>
+            <span class="ind1">})</span><br>
+            }<br>
+            <span class="cm">// hire me :)</span>
+          </div>
+        </div>
+      </div>
+      <!-- Статистика -->
+      <div class="hero-stats">
+        <div class="stat-card"><div class="stat-val accent">4 года</div><div class="stat-lbl">backend</div></div>
+        <div class="stat-card"><div class="stat-val accent">1.5y Go</div><div class="stat-lbl">основной яз.</div></div>
+        <div class="stat-card"><div class="stat-val accent">7+</div><div class="stat-lbl">проектов</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About + Experience -->
+<section id="about" style="padding:0 clamp(20px,4vw,48px) 80px">
+  <div class="wrap" style="padding-top:80px;border-top:1px solid var(--border-s)">
+    <div class="sec-label reveal">О себе <div class="sec-label-line"></div></div>
+    <div class="about-grid">
+      <div>
+        <p class="about-p reveal">Программированием занимаюсь с 12 лет, сейчас мне 20. Бэкендом — четыре года, Go пишу полтора. За это время успел поработать коммерчески, сделать несколько своих проектов и поконтрибьютить в open source.</p>
+        <p class="about-p reveal" style="margin-bottom:0;transition-delay:.1s">Люблю разбираться в том, как устроены вещи внутри: как данные проходят через систему, где возникают узкие места, как организовать код так, чтобы его не стыдно было читать через полгода. Умею писать чистую архитектуру, покрывать код тестами и работать с конкурентностью в Go.</p>
+      </div>
+      <div>
+        <div class="fact-row"><span class="fact-k">Основной язык</span><span class="fact-v">Go (полтора года)</span></div>
+        <div class="fact-row"><span class="fact-k">Опыт backend</span><span class="fact-v">4 года</span></div>
+        <div class="fact-row"><span class="fact-k">Коммерческий опыт</span><span class="fact-v">Простая наука, 2024</span></div>
+        <div class="fact-row"><span class="fact-k">Open Source</span><span class="fact-v">Prometheus contributor</span></div>
+        <div class="fact-row" style="border:none"><span class="fact-k">Локация</span><span class="fact-v">Москва, Россия</span></div>
+      </div>
+    </div>
+
+    <div style="margin-top:64px">
+      <div class="sec-label reveal">Опыт работы <div class="sec-label-line"></div></div>
+      <div class="sec-title reveal" style="transition-delay:.08s">Коммерческий опыт</div>
+      <div style="margin-top:32px">
+        <div class="exp-grid reveal" style="transition-delay:.16s">
+          <div>
+            <div class="exp-period">Февраль 2024 — Октябрь 2024</div>
+            <div class="exp-loc">Москва</div>
+            <div class="exp-tags tags-wrap">
+              <span class="tag">Go</span><span class="tag">Python</span><span class="tag">PostgreSQL</span>
+              <span class="tag">Docker</span><span class="tag">Telegram Bot API</span>
+              <span class="tag">OpenCV</span><span class="tag">scikit-learn</span><span class="tag">PyTorch</span>
+            </div>
+          </div>
+          <div>
+            <div class="exp-role-row">
+              <div class="exp-role">Backend-разработчик</div>
+              <a href="https://github.com/GeorgeTyupin/vectorizer" target="_blank" class="repo-ref">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                github.com/GeorgeTyupin/vectorizer
+              </a>
+            </div>
+            <div class="exp-company">Простая наука</div>
+            <div class="exp-metric">↑ Система обрабатывала до 5000 изображений в день</div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Python-сервис: K-means кластеризация, OpenCV постобработка, векторизация в SVG через Shapely</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Микросервисная архитектура: Python ML-сервис + Go-сервис координации и управления файлами</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>REST API на Go с PostgreSQL для хранения метаданных</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Telegram-бот на Go для доставки готовых материалов внутренним пользователям</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Контейнеризация в Docker, unit и интеграционные тесты критических компонентов</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- GitHub Stats -->
+<section id="github">
+  <div class="wrap">
+    <div class="sec-label reveal">GitHub <div class="sec-label-line"></div></div>
+    <div class="sec-title reveal" style="transition-delay:.08s">Активность</div>
+    <div class="stats-grid reveal" style="transition-delay:.16s">
+      <div class="stat-card"><div class="stat-val" id="gh-repos">—</div><div class="stat-lbl">Публичных репо</div></div>
+      <div class="stat-card"><div class="stat-val accent" id="gh-go">8</div><div class="stat-lbl">Проектов Go</div></div>
+      <div class="stat-card"><div class="stat-val">200+</div><div class="stat-lbl">Коммитов за год</div></div>
+      <div class="stat-card"><div class="stat-val">Prometheus</div><div class="stat-lbl">Open Source</div></div>
+    </div>
+    <div class="gh-cards">
+      <div class="gh-card">
+        <div class="gh-card-lbl">Активность · 24 недели</div>
+        <div class="heatmap" id="heatmap"></div>
+        <div class="heatmap-legend">
+          <span>меньше</span>
+          <div class="heatmap-cell" style="background:rgba(26,38,64,0.8)"></div>
+          <div class="heatmap-cell" style="background:rgba(0,199,227,0.15)"></div>
+          <div class="heatmap-cell" style="background:rgba(0,199,227,0.35)"></div>
+          <div class="heatmap-cell" style="background:rgba(0,199,227,0.6)"></div>
+          <div class="heatmap-cell" style="background:rgba(0,199,227,0.9)"></div>
+          <span>больше</span>
+        </div>
+      </div>
+      <div class="gh-card">
+        <div class="gh-card-lbl">Языки · последние 2 года</div>
+        <div class="lang-bar" id="lang-bar"></div>
+        <div id="lang-list"></div>
+      </div>
+    </div>
+    <div class="gh-card-lbl" style="margin-bottom:12px">Последние репозитории</div>
+    <div class="repo-grid" id="repo-grid"></div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-label reveal">Проекты <div class="sec-label-line"></div></div>
+    <div class="sec-title reveal" style="transition-delay:.08s">Что я строил</div>
+    <div class="proj-grid" id="proj-grid"></div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-label reveal">Навыки <div class="sec-label-line"></div></div>
+    <div class="sec-title reveal" style="transition-delay:.08s">Технический стек</div>
+    <div class="skills-grid" id="skills-grid"></div>
+  </div>
+</section>
+
+<!-- Education -->
+<section id="education">
+  <div class="wrap">
+    <div class="sec-label reveal">Образование <div class="sec-label-line"></div></div>
+    <div class="sec-title reveal" style="transition-delay:.08s">Учёба</div>
+    <div style="margin-top:28px">
+      <div class="edu-card reveal" style="transition-delay:.16s">
+        <div class="edu-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        <div>
+          <div class="edu-school">Московский авиационный институт (МАИ)</div>
+          <div class="edu-degree">Прикладная информатика · 2 курс</div>
+          <div class="edu-period">2024 — настоящее время</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">tyupin<span>-dev.ru</span> · Тюпин Георгий</div>
+    <div class="footer-links">
+      <a href="https://t.me/georgetyupin" target="_blank" class="footer-link">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        @georgetyupin
+      </a>
+      <a href="mailto:tyupin.georgy@gmail.com" class="footer-link">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        tyupin.georgy@gmail.com
+      </a>
+      <a href="https://github.com/GeorgeTyupin" target="_blank" class="footer-link">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="/static/js/app.js"></script>
+</body>
+</html>

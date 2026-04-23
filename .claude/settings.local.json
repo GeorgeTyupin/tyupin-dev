@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "PowerShell(Stop-Process -Id 14620 -Force)",
+      "Bash(python -c ' *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/)",
+      "Bash(go run *)",
+      "Bash(curl -s http://localhost:8080/)",
+      "Bash(taskkill /F /IM go.exe)",
+      "Bash(taskkill /F /IM server.exe)",
+      "Bash(taskkill /F /IM main.exe)",
+      "Bash(netstat -ano)",
+      "Bash(findstr :8080)"
+    ]
+  }
+}
