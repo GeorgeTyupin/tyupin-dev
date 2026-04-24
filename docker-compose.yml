@@ -2,24 +2,11 @@ services:
   app:
     build: .
     restart: unless-stopped
-    expose:
-      - "8080"
-
-  nginx:
-    image: nginx:alpine
-    restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./certbot/www:/var/www/certbot
-      - ./certbot/conf:/etc/letsencrypt
-    depends_on:
-      - app
+      - certs-cache:/app/certs-cache
 
-  certbot:
-    image: certbot/certbot
-    volumes:
-      - ./certbot/www:/var/www/certbot
-      - ./certbot/conf:/etc/letsencrypt
+volumes:
+  certs-cache:
