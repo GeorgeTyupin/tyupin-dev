@@ -1,6 +1,7 @@
 package config
 
 import (
+	"log/slog"
 	"time"
 
 	"github.com/ilyakaznacheev/cleanenv"
@@ -27,8 +28,13 @@ type Config struct {
 	Server ServerConfig `yaml:"server"`
 }
 
-func LoadConfig() (*Config, error) {
-	_ = godotenv.Load(prodEnvPath)
+func LoadConfig(logger *slog.Logger) (*Config, error) {
+	const op = "config.LoadConfig"
+	logger = logger.With("op", op)
+
+	if err := godotenv.Load(prodEnvPath); err != nil {
+		logger.Error("Ошибка загрузки конфигурации", "error", err)
+	}
 
 	var cfg Config
 	if err := cleanenv.ReadEnv(&cfg); err != nil {

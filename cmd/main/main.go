@@ -15,7 +15,7 @@ import (
 func main() {
 	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
 
-	cfg, err := config.LoadConfig()
+	cfg, err := config.LoadConfig(logger)
 	if err != nil {
 		logger.Error("Ошибка загрузки конфигурации", "error", err)
 		os.Exit(1)
