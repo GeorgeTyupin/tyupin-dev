@@ -18,8 +18,8 @@ type ServerConfig struct {
 	ReadTimeout  time.Duration `yaml:"readTimeout"`
 	WriteTimeout time.Duration `yaml:"writeTimeout"`
 	IdleTimeout  time.Duration `yaml:"idleTimeout"`
-	Host1        string        `yaml:"host1"`
-	Host2        string        `yaml:"host2"`
+	PrimaryHost  string        `yaml:"host1"`
+	WWWHost      string        `yaml:"host2"`
 }
 
 type Config struct {

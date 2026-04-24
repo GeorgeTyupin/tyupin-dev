@@ -7,13 +7,13 @@ import (
 	"golang.org/x/crypto/acme/autocert"
 )
 
-const certCachePath = "secret-dir"
+const certCachePath = "certs-cache"
 
 func newAutoCertManager(cfg *config.Config) *autocert.Manager {
 	return &autocert.Manager{
 		Cache:      autocert.DirCache(certCachePath),
 		Prompt:     autocert.AcceptTOS,
-		HostPolicy: autocert.HostWhitelist(cfg.Server.Host1, cfg.Server.Host2),
+		HostPolicy: autocert.HostWhitelist(cfg.Server.PrimaryHost, cfg.Server.WWWHost),
 	}
 }
 

@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"time"
 
 	"tyupin-dev/internal/api"
 	"tyupin-dev/internal/config"
@@ -22,7 +23,7 @@ func main() {
 
 	server := api.NewHTTPServer(cfg)
 
-	if !cfg.Prod {
+	if cfg.Prod {
 		go func() {
 			err := http.ListenAndServe(cfg.Server.HTTPAddr, server.Manager.HTTPHandler(nil))
 			if err != nil {
@@ -55,7 +56,10 @@ func main() {
 
 	logger.Info("Остановка сервера...")
 
-	if err := server.Shutdown(context.Background()); err != nil {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	if err := server.Shutdown(ctx); err != nil {
 		logger.Error("Ошибка остановки сервера", "error", err)
 		os.Exit(1)
 	}
