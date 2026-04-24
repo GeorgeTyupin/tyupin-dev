@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Тюпин Георгий — Go Developer</title>
+<title>Тюпин Георгий · Go Developer</title>
 <meta name="description" content="Backend Go-разработчик, 4 года опыта. Москва.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,6 +23,10 @@
     <button class="nav-link"        data-section="education" onclick="navScrollTo('education')">Образование</button>
   </div>
   <div class="nav-end">
+    <a href="/static/pdf/CV_Тюпин_Георгий.pdf" download class="nav-pdf">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Скачать PDF
+    </a>
     <a href="https://t.me/georgetyupin" target="_blank" class="nav-cta">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
       Связаться
@@ -45,6 +49,10 @@
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
     Связаться
   </a>
+  <a href="/static/pdf/CV_Тюпин_Георгий.pdf" download class="nav-mobile-pdf">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Скачать PDF
+  </a>
 </div>
 
 <!-- Hero -->
@@ -56,7 +64,7 @@
       <div class="hero-badge"><span class="hero-badge-dot"></span>Открыт к предложениям</div>
       <div class="hero-name">Тюпин Георгий</div>
       <div class="hero-role">Go Developer</div>
-      <p class="hero-desc">Занимаюсь бэкендом с 16 лет, целенаправленно изучаю Go уже полтора года: микросервисы, REST API, чистая архитектура, конкурентность.</p>
+      <p class="hero-desc">Занимаюсь бэкендом с 16 лет, целенаправленно изучаю Go уже полтора года: микросервисы, REST API, чистую архитектуру, конкурентность.</p>
       <div class="hero-btns">
         <a href="https://t.me/georgetyupin" target="_blank" class="btn-primary">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
@@ -69,6 +77,10 @@
         <a href="https://github.com/GeorgeTyupin" target="_blank" class="btn-secondary">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
           GitHub
+        </a>
+        <a href="/static/pdf/CV_Тюпин_Георгий.pdf" download class="btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Скачать PDF
         </a>
       </div>
       <div class="hero-meta">
@@ -109,7 +121,7 @@
           <div class="code-body">
             <span class="kw">func</span> <span class="fn">main</span>() {<br>
             <span class="ind1">hire(<span class="ty">Developer</span>{</span><br>
-            <span class="ind2"><span class="dm">OpenTo: </span><span class="st">"новая позиция"</span>,</span><br>
+            <span class="ind2"><span class="dm">Name: </span><span class="st">"George Tyupin"</span>,</span><br>
             <span class="ind2"><span class="dm">Stack:  </span><span class="st">"Go, PG, Docker"</span>,</span><br>
             <span class="ind1">})</span><br>
             }<br>
@@ -121,7 +133,7 @@
       <div class="hero-stats">
         <div class="stat-card"><div class="stat-val accent">4 года</div><div class="stat-lbl">backend</div></div>
         <div class="stat-card"><div class="stat-val accent">1.5y Go</div><div class="stat-lbl">основной яз.</div></div>
-        <div class="stat-card"><div class="stat-val accent">7+</div><div class="stat-lbl">проектов</div></div>
+        <div class="stat-card"><div class="stat-val accent">8+</div><div class="stat-lbl">проектов</div></div>
       </div>
     </div>
   </div>
@@ -133,7 +145,7 @@
     <div class="sec-label reveal">О себе <div class="sec-label-line"></div></div>
     <div class="about-grid">
       <div>
-        <p class="about-p reveal">Программированием занимаюсь с 12 лет, сейчас мне 20. Бэкендом — четыре года, Go пишу полтора. За это время успел поработать коммерчески, сделать несколько своих проектов и поконтрибьютить в open source.</p>
+        <p class="about-p reveal">Программированием занимаюсь с 12 лет, сейчас мне 20. Бэкендом четыре года, Go пишу полтора. За это время успел поработать коммерчески, сделать несколько своих проектов и поконтрибьютить в open source.</p>
         <p class="about-p reveal" style="margin-bottom:0;transition-delay:.1s">Люблю разбираться в том, как устроены вещи внутри: как данные проходят через систему, где возникают узкие места, как организовать код так, чтобы его не стыдно было читать через полгода. Умею писать чистую архитектуру, покрывать код тестами и работать с конкурентностью в Go.</p>
       </div>
       <div>
