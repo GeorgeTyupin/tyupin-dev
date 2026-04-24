@@ -28,19 +28,14 @@ type Config struct {
 }
 
 func LoadConfig() (*Config, error) {
-	err := godotenv.Load(prodEnvPath)
-	if err != nil {
-		return nil, err
-	}
+	_ = godotenv.Load(prodEnvPath)
 
 	var cfg Config
-	err = cleanenv.ReadEnv(&cfg)
-	if err != nil {
+	if err := cleanenv.ReadEnv(&cfg); err != nil {
 		return nil, err
 	}
 
-	err = cleanenv.ReadConfig(serverConfigPath, &cfg)
-	if err != nil {
+	if err := cleanenv.ReadConfig(serverConfigPath, &cfg); err != nil {
 		return nil, err
 	}
 
