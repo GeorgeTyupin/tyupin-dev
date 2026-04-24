@@ -16,10 +16,15 @@ type Server struct {
 func NewHTTPServer(cfg *config.Config) *Server {
 	manager := newAutoCertManager(cfg)
 
+	addr := cfg.Server.DevAddr
+	if cfg.Prod {
+		addr = cfg.Server.ProdAddr
+	}
+
 	return &Server{
 		Manager: manager,
 		Server: &http.Server{
-			Addr:         cfg.Server.Addr,
+			Addr:         addr,
 			Handler:      registerRoutes(),
 			TLSConfig:    newTLSConfig(manager),
 			ReadTimeout:  cfg.Server.ReadTimeout,

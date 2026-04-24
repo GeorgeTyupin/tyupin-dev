@@ -14,7 +14,8 @@ const (
 )
 
 type ServerConfig struct {
-	Addr         string        `yaml:"addr"`
+	ProdAddr     string        `yaml:"prodAddr"`
+	DevAddr      string        `yaml:"devAddr"`
 	HTTPAddr     string        `yaml:"httpAddr"`
 	ReadTimeout  time.Duration `yaml:"readTimeout"`
 	WriteTimeout time.Duration `yaml:"writeTimeout"`

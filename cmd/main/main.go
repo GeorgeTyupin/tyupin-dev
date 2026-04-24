@@ -38,13 +38,13 @@ func main() {
 
 	go func() {
 		if cfg.Prod {
-			logger.Info("Запуск HTTPS сервера", slog.String("addr", cfg.Server.Addr))
+			logger.Info("Запуск HTTPS сервера", slog.String("addr", cfg.Server.ProdAddr))
 			if err := server.ListenAndServeTLS("", ""); err != http.ErrServerClosed && err != nil {
 				logger.Error("Ошибка запуска HTTPS сервера", "error", err)
 				os.Exit(1)
 			}
 		} else {
-			logger.Info("Запуск HTTP сервера", slog.String("addr", cfg.Server.HTTPAddr))
+			logger.Info("Запуск HTTP сервера", slog.String("addr", cfg.Server.DevAddr))
 			if err := server.ListenAndServe(); err != http.ErrServerClosed && err != nil {
 				logger.Error("Ошибка запуска HTTP сервера", "error", err)
 				os.Exit(1)

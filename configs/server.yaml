@@ -1,5 +1,6 @@
 server:
-  addr: ":443"
+  prodAddr: ":443"
+  devAddr: ":8080"
   httpAddr: ":80"
   readTimeout: "5s"
   writeTimeout: "10s"
