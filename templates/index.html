@@ -7,9 +7,10 @@
 <meta name="description" content="Backend Go-разработчик, 4 года опыта. Москва.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="/static/css/style.css?v=4">
+<link rel="stylesheet" href="/static/css/style.css?v=8">
 </head>
 <body>
+
 
 <!-- Nav -->
 <nav id="nav">
@@ -54,6 +55,25 @@
     Скачать PDF
   </a>
 </div>
+
+<!-- Side navigation -->
+<nav id="side-nav" aria-label="Навигация по разделам">
+  <div class="side-nav-track">
+    <div class="side-nav-line-wrap">
+      <div class="side-nav-line"></div>
+      <div id="side-nav-fill" class="side-nav-line-fill"></div>
+    </div>
+    <div class="side-nav-dots">
+      <button class="side-nav-dot active" data-section="hero"       onclick="navScrollTo('hero')"><span class="side-nav-pip"></span><span class="side-nav-label">Начало</span></button>
+      <button class="side-nav-dot"        data-section="about"      onclick="navScrollTo('about')"><span class="side-nav-pip"></span><span class="side-nav-label">О себе</span></button>
+      <button class="side-nav-dot"        data-section="experience" onclick="navScrollTo('experience')"><span class="side-nav-pip"></span><span class="side-nav-label">Опыт</span></button>
+      <button class="side-nav-dot"        data-section="github"    onclick="navScrollTo('github')"><span class="side-nav-pip"></span><span class="side-nav-label">Активность</span></button>
+      <button class="side-nav-dot"        data-section="projects"  onclick="navScrollTo('projects')"><span class="side-nav-pip"></span><span class="side-nav-label">Проекты</span></button>
+      <button class="side-nav-dot"        data-section="skills"    onclick="navScrollTo('skills')"><span class="side-nav-pip"></span><span class="side-nav-label">Навыки</span></button>
+      <button class="side-nav-dot"        data-section="education" onclick="navScrollTo('education')"><span class="side-nav-pip"></span><span class="side-nav-label">Образование</span></button>
+    </div>
+  </div>
+</nav>
 
 <!-- Hero -->
 <section id="hero">
@@ -103,12 +123,16 @@
     <div class="hero-right">
       <!-- Верхняя строка: фото | код -->
       <div class="hero-panels">
-        <div class="photo-card">
-          <img src="/static/img/photo-portrait.png" alt="Тюпин Георгий">
-          <div class="photo-overlay"></div>
-          <div class="photo-caption">
-            <div class="photo-caption-name">Тюпин Георгий</div>
-            <div class="photo-caption-role">Go Developer · Москва</div>
+        <div class="photo-card-wrap" id="photo-card-wrap">
+          <div class="photo-card">
+            <div class="photo-card-inner">
+              <img src="/static/img/photo-portrait.png" alt="Тюпин Георгий">
+              <div class="photo-overlay"></div>
+              <div class="photo-caption">
+                <div class="photo-caption-name">Тюпин Георгий</div>
+                <div class="photo-caption-role">Go Developer · Москва</div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="code-card hero-code-card">
@@ -157,7 +181,7 @@
       </div>
     </div>
 
-    <div style="margin-top:64px">
+    <div id="experience" style="margin-top:64px">
       <div class="sec-label reveal">Опыт работы <div class="sec-label-line"></div></div>
       <div class="sec-title reveal" style="transition-delay:.08s">Коммерческий опыт</div>
       <div style="margin-top:32px">
@@ -289,6 +313,7 @@
   </div>
 </footer>
 
-<script src="/static/js/app.js"></script>
+<div id="cursor-glow"></div>
+<script src="/static/js/app.js?v=8"></script>
 </body>
 </html>

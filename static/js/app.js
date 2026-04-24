@@ -15,20 +15,66 @@ function observeReveal(els) {
 // Наблюдаем за статичными reveal-элементами после загрузки DOM
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
+// ── Cached refs ──────────────────────────────────────────────
+const scrollProgressEl = document.getElementById('scroll-progress');
+const photoWrap        = document.getElementById('photo-card-wrap');
+const photoCard        = document.querySelector('.photo-card');
+const photoCardInner   = document.querySelector('.photo-card-inner');
+const sideNavDots      = document.querySelectorAll('.side-nav-dot');
+const sideNavFill      = document.getElementById('side-nav-fill');
+
+const SECTIONS = ['hero', 'about', 'experience', 'github', 'projects', 'skills', 'education'];
+const PIP_SIZE = 10; // px, совпадает с CSS width/height .side-nav-pip
+const CSS_GAP  = 26; // px, совпадает с CSS gap в .side-nav-dots
+const DOT_GAP  = PIP_SIZE + CSS_GAP; // расстояние между центрами соседних точек = 36px
+const MAX_FILL = (SECTIONS.length - 1) * DOT_GAP; // 216px — от центра первой до центра последней точки
+const WRAP_H   = (SECTIONS.length - 1) * DOT_GAP + PIP_SIZE; // 226px — полная высота дорожки
+
+
+function calcFillHeight(scrollY) {
+  const maxScrollY = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+  return Math.min(MAX_FILL, (scrollY / maxScrollY) * MAX_FILL);
+}
+
+function updateSideNav(activeSection, scrollY) {
+  sideNavDots.forEach(dot => {
+    dot.classList.toggle('active', dot.dataset.section === activeSection);
+  });
+  if (sideNavFill) {
+    sideNavFill.style.height = calcFillHeight(scrollY) + 'px';
+  }
+}
 
 // ── Nav scroll ──────────────────────────────────────────────
+let rafPending = false;
 window.addEventListener('scroll', () => {
-  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+  if (rafPending) return;
+  rafPending = true;
+  requestAnimationFrame(() => {
+    const scrollY = window.scrollY;
 
-  const sections = ['hero', 'about', 'github', 'projects', 'skills', 'education'];
-  let active = 'hero';
-  for (const id of [...sections].reverse()) {
-    const el = document.getElementById(id);
-    if (el && window.scrollY >= el.offsetTop - 150) { active = id; break; }
-  }
+    document.getElementById('nav').classList.toggle('scrolled', scrollY > 50);
 
-  document.querySelectorAll('.nav-link, .nav-mobile-link').forEach(b => {
-    b.classList.toggle('active', b.dataset.section === active);
+    let active = 'hero';
+    const atBottom = (scrollY + window.innerHeight) >= document.documentElement.scrollHeight - 50;
+    if (atBottom) {
+      active = SECTIONS[SECTIONS.length - 1];
+    } else {
+      for (const id of [...SECTIONS].reverse()) {
+        const el = document.getElementById(id);
+        if (el && scrollY >= el.offsetTop - 150) { active = id; break; }
+      }
+    }
+
+    document.querySelectorAll('.nav-link, .nav-mobile-link').forEach(b => {
+      b.classList.toggle('active', b.dataset.section === active);
+    });
+
+    updateSideNav(active, scrollY);
+
+    if (photoWrap) photoWrap.style.transform = `translateY(${-(scrollY * 0.08)}px)`;
+
+    rafPending = false;
   });
 }, { passive: true });
 
@@ -135,6 +181,18 @@ document.querySelectorAll('#proj-grid .proj-card').forEach((el, i) => {
   revealObserver.observe(el);
 });
 
+// 3D tilt на карточках проектов
+document.querySelectorAll('#proj-grid .proj-card').forEach(card => {
+  card.addEventListener('pointermove', e => {
+    if (e.pointerType === 'touch') return;
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width  - 0.5) * 2;
+    const y = ((e.clientY - rect.top)  / rect.height - 0.5) * 2;
+    card.style.transform = `perspective(600px) rotateX(${-(y * 4)}deg) rotateY(${x * 4}deg) translateY(-4px)`;
+  });
+  card.addEventListener('pointerleave', () => { card.style.transform = ''; });
+});
+
 
 // ── Skills ──────────────────────────────────────────────────
 const skills = {
@@ -153,11 +211,12 @@ document.getElementById('skills-grid').innerHTML = Object.entries(skills).map(([
   </div>
 `).join('');
 
-// Stagger reveal для skill-карточек
+// Stagger reveal + 3D tilt для skill-карточек
 document.querySelectorAll('#skills-grid .skill-cat').forEach((el, i) => {
   el.classList.add('reveal');
   el.style.transitionDelay = `${i * 55}ms`;
   revealObserver.observe(el);
+
 });
 
 
@@ -175,6 +234,7 @@ function buildHeatmap(days) {
       const idx  = w * 7 + d;
       const cell = document.createElement('div');
       cell.className = 'heatmap-cell';
+      cell.style.animationDelay = `${w * 18}ms`;
       if (idx < days.length) {
         const c = days[idx].count;
         const level = c === 0 ? 0 : Math.min(4, Math.ceil(c / maxCount * 4));
@@ -198,13 +258,100 @@ function buildMockHeatmap() {
   buildHeatmap(days);
 }
 
+
+// ── Cursor glow ──────────────────────────────────────────────
+const cursorGlow = document.getElementById('cursor-glow');
+if (cursorGlow && window.matchMedia('(pointer: fine)').matches) {
+  document.addEventListener('pointermove', e => {
+    cursorGlow.style.top  = e.clientY + 'px';
+    cursorGlow.style.left = e.clientX + 'px';
+  }, { passive: true });
+}
+
+
+// ── Hero stat count-up при загрузке ─────────────────────────
+(function() {
+  const heroData = [
+    { num: 4,   suffix: ' года',  decimal: false },
+    { num: 1.5, suffix: 'y Go',  decimal: true  },
+    { num: 8,   suffix: '+',     decimal: false  },
+  ];
+  const els = document.querySelectorAll('.hero-stats .stat-val');
+  els.forEach((el, i) => {
+    const d = heroData[i];
+    if (!d) return;
+    el.textContent = (d.decimal ? '0.0' : '0') + d.suffix;
+    setTimeout(() => {
+      const start = performance.now();
+      const dur = 550;
+      const step = ts => {
+        const p = Math.min((ts - start) / dur, 1);
+        const e = 1 - Math.pow(1 - p, 3);
+        el.textContent = (d.decimal ? (e * d.num).toFixed(1) : Math.floor(e * d.num)) + d.suffix;
+        if (p < 1) requestAnimationFrame(step);
+        else { el.textContent = (d.decimal ? d.num.toFixed(1) : d.num) + d.suffix; el.classList.add('counted'); }
+      };
+      requestAnimationFrame(step);
+    }, 300 + i * 120);
+  });
+})();
+
+// ── Count-up для числовых stat-val ──────────────────────────
+function countUp(el, target, suffix, duration) {
+  let start = null;
+  const step = (ts) => {
+    if (!start) start = ts;
+    const progress = Math.min((ts - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.floor(eased * target) + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+    else { el.textContent = target + suffix; el.classList.add('counted'); }
+  };
+  requestAnimationFrame(step);
+}
+
+function parseStatVal(text) {
+  const m = text.match(/^(\d+)(\+?)(.*)$/);
+  if (!m) return null;
+  return { num: parseInt(m[1], 10), suffix: m[2] + m[3] };
+}
+
+const countUpObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const parsed = parseStatVal(el.dataset.countTarget || '');
+    if (!parsed) return;
+    countUp(el, parsed.num, parsed.suffix, 1200);
+    countUpObserver.unobserve(el);
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('#github .stat-val').forEach(el => {
+  const parsed = parseStatVal(el.textContent.trim());
+  if (!parsed) return;
+  el.dataset.countTarget = el.textContent.trim();
+  el.textContent = '0' + parsed.suffix;
+  countUpObserver.observe(el);
+});
+
+function animateHeatmap() {
+  const hm = document.getElementById('heatmap');
+  const obs = new IntersectionObserver(entries => {
+    if (!entries[0].isIntersecting) return;
+    hm.classList.add('animated');
+    obs.disconnect();
+  }, { threshold: 0.1 });
+  obs.observe(hm);
+}
+
 fetch('/api/github/contributions')
   .then(r => r.json())
   .then(days => {
-    if (!Array.isArray(days) || days.length === 0) { buildMockHeatmap(); return; }
-    buildHeatmap(days);
+    if (!Array.isArray(days) || days.length === 0) { buildMockHeatmap(); } else { buildHeatmap(days); }
+    animateHeatmap();
   })
-  .catch(() => buildMockHeatmap());
+  .catch(() => { buildMockHeatmap(); animateHeatmap(); });
 
 
 // ── GitHub API (через Go-бэкенд) ────────────────────────────
@@ -216,7 +363,11 @@ const lc = {
 fetch('/api/github/user')
   .then(r => r.json())
   .then(d => {
-    if (d.public_repos) document.getElementById('gh-repos').textContent = d.public_repos;
+    if (!d.public_repos) return;
+    const el = document.getElementById('gh-repos');
+    el.dataset.countTarget = String(d.public_repos);
+    el.textContent = '0';
+    countUpObserver.observe(el);
   })
   .catch(() => {});
 
@@ -236,8 +387,18 @@ fetch('/api/github/repos')
     if (tl.length > 0) {
       const goTotal = repos.filter(r => !r.fork && (r.language === 'Go' || r.language === 'Templ')).length;
       document.getElementById('gh-go').textContent = Math.max(goTotal, 8);
-      document.getElementById('lang-bar').innerHTML  = tl.map(([l, c]) =>
-        `<div style="flex:${c};background:${lc[l] || '#555'}"></div>`).join('');
+      const langBar = document.getElementById('lang-bar');
+      langBar.innerHTML = tl.map(([l, c]) =>
+        `<div style="flex:${c};background:${lc[l]||'#555'};transform:scaleX(0)"></div>`).join('');
+      const barObs = new IntersectionObserver(entries => {
+        if (!entries[0].isIntersecting) return;
+        langBar.querySelectorAll('div').forEach((el, i) => {
+          el.style.transitionDelay = `${i * 90}ms`;
+          el.style.transform = 'scaleX(1)';
+        });
+        barObs.disconnect();
+      }, { threshold: 0.5 });
+      barObs.observe(langBar);
       document.getElementById('lang-list').innerHTML = tl.map(([l, c]) => `
         <div class="lang-row">
           <div style="display:flex;align-items:center">

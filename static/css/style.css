@@ -161,7 +161,7 @@ section{padding:80px clamp(20px,4vw,48px)}
 /* Projects */
 #projects{background:var(--bg-2);border-top:1px solid var(--border-s);border-bottom:1px solid var(--border-s)}
 .proj-grid{margin-top:32px;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
-.proj-card{background:var(--bg-card);border-radius:10px;display:flex;flex-direction:column;padding:22px;border:1px solid var(--border-d);transition:all 200ms var(--ease);cursor:default}
+.proj-card{background:var(--bg-card);border-radius:10px;display:flex;flex-direction:column;padding:22px;border:1px solid var(--border-d);transition:border-color 220ms var(--ease),box-shadow 220ms var(--ease),transform 400ms cubic-bezier(0.34,1.56,0.64,1);cursor:default}
 .proj-card:hover{border-color:var(--border-st);transform:translateY(-3px);box-shadow:0 10px 36px rgba(0,0,0,0.55)}
 .proj-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px}
 .proj-name{font-family:var(--fd);font-size:15px;font-weight:600;color:var(--t1)}
@@ -289,9 +289,9 @@ footer{padding:36px clamp(20px,4vw,48px);border-top:1px solid var(--border-s);ba
 /* ── Плавный float для фото ─────────────────────────────────── */
 @keyframes float{
   0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-6px)}
+  50%{transform:translateY(-10px)}
 }
-.photo-card{animation:float 5s ease-in-out infinite}
+.photo-card{animation:float 6s ease-in-out infinite}
 
 /* ── Hover-shine на кнопках ─────────────────────────────────── */
 .btn-primary{position:relative;overflow:hidden;transition:opacity 200ms,box-shadow 200ms}
@@ -302,8 +302,94 @@ footer{padding:36px clamp(20px,4vw,48px);border-top:1px solid var(--border-s);ba
 .btn-secondary:hover{border-color:var(--border-st);box-shadow:0 2px 12px rgba(0,0,0,0.3);opacity:1}
 
 /* ── Hover-glow на project cards ───────────────────────────── */
-.proj-card{transition:all 220ms var(--ease)}
-.proj-card:hover{border-color:rgba(0,199,227,0.3);box-shadow:0 8px 40px rgba(0,0,0,0.55),0 0 0 1px rgba(0,199,227,0.08);transform:translateY(-4px)}
+.proj-card{transition:border-color 220ms var(--ease),box-shadow 220ms var(--ease)}
+.proj-card:hover{border-color:rgba(0,199,227,0.3);box-shadow:0 8px 40px rgba(0,0,0,0.55),0 0 0 1px rgba(0,199,227,0.08)}
 
 /* ── Hover underline для nav-link ───────────────────────────── */
 .nav-link:hover{color:var(--t1)}
+
+
+/* ── Side Navigation ─────────────────────────────────────────── */
+#side-nav{position:fixed;left:20px;top:clamp(80px,50%,calc(100vh - 80px));transform:translateY(-50%);z-index:190}
+.side-nav-track{display:flex;flex-direction:row;align-items:flex-start;gap:0}
+.side-nav-line-wrap{width:10px;height:226px;position:relative;flex-shrink:0;margin-right:10px}
+.side-nav-line{position:absolute;top:5px;left:50%;transform:translateX(-50%);width:1px;height:216px;background:var(--border-s)}
+.side-nav-line-fill{position:absolute;top:5px;left:50%;transform:translateX(-50%);width:1px;height:0;background:var(--accent);transition:height 80ms linear;box-shadow:0 0 6px rgba(0,199,227,0.35)}
+.side-nav-dots{display:flex;flex-direction:column;gap:26px}
+.side-nav-dot{display:flex;align-items:center;gap:10px;background:none;border:none;cursor:pointer;padding:0;height:10px;overflow:visible}
+.side-nav-pip{width:10px;height:10px;border-radius:50%;background:var(--border-st);border:1.5px solid var(--border-st);flex-shrink:0;display:block;transition:background 200ms var(--ease),transform 200ms var(--ease),border-color 200ms var(--ease),box-shadow 200ms var(--ease)}
+.side-nav-label{font-family:var(--fm);font-size:11px;color:var(--t4);white-space:nowrap;opacity:0;transform:translateX(-4px);transition:opacity 180ms ease,transform 180ms ease,color 180ms ease;pointer-events:none}
+.side-nav-dot.active .side-nav-pip{background:var(--accent);border-color:var(--accent);transform:scale(1.3);box-shadow:0 0 8px rgba(0,199,227,0.45)}
+.side-nav-dot.active .side-nav-label{color:var(--accent);opacity:1;transform:translateX(0)}
+#side-nav:hover .side-nav-label{opacity:1;transform:translateX(0)}
+#side-nav:hover .side-nav-pip{background:var(--border-st);border-color:var(--border-st)}
+#side-nav:hover .side-nav-dot.active .side-nav-pip{background:var(--accent);border-color:var(--accent);transform:scale(1.6);box-shadow:0 0 12px rgba(0,199,227,0.6)}
+#side-nav:hover .side-nav-dot.active .side-nav-label{color:var(--accent);font-size:12px}
+#side-nav:hover .side-nav-dot:not(.active):hover .side-nav-pip{background:var(--t3);border-color:var(--t3);transform:scale(1.25)}
+#side-nav:hover .side-nav-dot:not(.active):hover .side-nav-label{color:var(--t2)}
+@media(max-width:860px){
+  #side-nav{left:50%;top:auto;bottom:16px;transform:translateX(-50%)}
+  .side-nav-track{flex-direction:row;align-items:center}
+  .side-nav-line-wrap{display:none}
+  .side-nav-dots{flex-direction:row;gap:14px;background:rgba(8,13,24,0.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--border-d);border-radius:99px;padding:10px 20px}
+  .side-nav-label{display:none}
+  .side-nav-pip{width:7px;height:7px}
+  #side-nav:hover .side-nav-dot.active .side-nav-pip{transform:scale(1.3)}
+}
+
+/* ── Photo card layers ───────────────────────────────────────── */
+.photo-card-wrap{width:100%;will-change:transform}
+.photo-card-inner{position:absolute;inset:0;will-change:transform}
+
+/* ── Cursor glow ─────────────────────────────────────────────── */
+#cursor-glow{position:fixed;pointer-events:none;z-index:0;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,199,227,0.032) 0%,transparent 70%);transform:translate(-50%,-50%);top:-250px;left:-250px;transition:top 80ms linear,left 80ms linear;will-change:top,left}
+@media(max-width:860px){#cursor-glow{display:none}}
+
+/* ── Hover на code-card ──────────────────────────────────────── */
+.code-card{transition:border-color 220ms var(--ease),box-shadow 220ms var(--ease),transform 400ms cubic-bezier(0.34,1.56,0.64,1)}
+.code-card:hover{border-color:rgba(0,199,227,0.25);box-shadow:0 8px 32px rgba(0,0,0,0.5),0 0 0 1px rgba(0,199,227,0.08);transform:translateY(-3px)}
+
+/* ── Hover на stat-cards ─────────────────────────────────────── */
+.stat-card{transition:transform 400ms cubic-bezier(0.34,1.56,0.64,1),border-color 220ms var(--ease),box-shadow 220ms var(--ease)}
+.stat-card:hover{transform:translateY(-3px);border-color:var(--border-st);box-shadow:0 8px 24px rgba(0,0,0,0.45)}
+
+/* ── Hover на gh-cards ───────────────────────────────────────── */
+.gh-card{transition:border-color 220ms var(--ease),box-shadow 220ms var(--ease)}
+.gh-card:hover{border-color:var(--border-st);box-shadow:0 4px 20px rgba(0,0,0,0.35)}
+
+/* ── Hover на repo-card (transform + accent glow) ────────────── */
+.repo-card{transition:border-color 200ms var(--ease),transform 400ms cubic-bezier(0.34,1.56,0.64,1),box-shadow 200ms var(--ease)}
+.repo-card:hover{transform:translateY(-3px);border-color:rgba(0,199,227,0.25);box-shadow:0 6px 20px rgba(0,0,0,0.45),0 0 0 1px rgba(0,199,227,0.06)}
+
+/* ── Hover на edu-card ───────────────────────────────────────── */
+.edu-card{transition:border-color 220ms var(--ease),box-shadow 220ms var(--ease),transform 400ms cubic-bezier(0.34,1.56,0.64,1)}
+.edu-card:hover{border-color:rgba(0,199,227,0.25);box-shadow:0 8px 28px rgba(0,0,0,0.45),0 0 0 1px rgba(0,199,227,0.06);transform:translateY(-3px)}
+
+/* ── Hover на skill-cat ──────────────────────────────────────── */
+.skill-cat{transition:border-color 220ms var(--ease),box-shadow 220ms var(--ease),transform 400ms cubic-bezier(0.34,1.56,0.64,1)}
+.skill-cat:hover{border-color:rgba(0,199,227,0.25);box-shadow:0 8px 32px rgba(0,0,0,0.5),0 0 0 1px rgba(0,199,227,0.07);transform:translateY(-3px)}
+
+/* ── Hover на fact-row ───────────────────────────────────────── */
+.fact-row{transition:background 150ms ease}
+.fact-row:hover{background:rgba(26,38,64,0.55)}
+
+/* ── Hover на тегах ──────────────────────────────────────────── */
+.tag{transition:border-color 150ms ease,color 150ms ease,background 150ms ease}
+.tag:hover{border-color:var(--border-st);color:var(--t2)}
+.tag.accent{transition:border-color 150ms ease,box-shadow 150ms ease}
+.tag.accent:hover{border-color:rgba(0,199,227,0.4);box-shadow:0 0 8px rgba(0,199,227,0.15)}
+
+/* ── Анимация sec-label-line при появлении ───────────────────── */
+.sec-label-line{transform-origin:left;transform:scaleX(0);transition:transform 0.75s var(--ease)}
+.reveal.visible .sec-label-line{transform:scaleX(1)}
+
+/* ── Count-up: поп-анимация при завершении ───────────────────── */
+@keyframes stat-pop{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
+.stat-val.counted{animation:stat-pop 350ms var(--ease)}
+
+/* ── Heatmap: анимация появления ячеек ──────────────────────── */
+@keyframes cell-in{0%{opacity:0;transform:scale(0)}65%{transform:scale(1.25)}100%{opacity:1;transform:scale(1)}}
+.heatmap.animated .heatmap-cell{animation:cell-in 300ms var(--ease) both}
+
+/* ── Lang-bar: анимация заполнения полосок ───────────────────── */
+#lang-bar div{transform-origin:left;transition:transform 700ms var(--ease)}
