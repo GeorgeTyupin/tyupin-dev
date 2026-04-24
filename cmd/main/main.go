@@ -1,29 +1,64 @@
 package main
 
 import (
-	"log"
+	"context"
+	"log/slog"
 	"net/http"
+	"os"
+	"os/signal"
 
-	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
-
-	"tyupin-dev/internal/handlers"
+	"tyupin-dev/internal/api"
+	"tyupin-dev/internal/config"
 )
 
 func main() {
-	r := chi.NewRouter()
-	r.Use(middleware.Logger)
-	r.Use(middleware.Recoverer)
-	r.Use(middleware.Compress(5))
+	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
 
-	r.Get("/", handlers.HandleIndex)
-	r.Get("/api/github/user", handlers.HandleUser)
-	r.Get("/api/github/repos", handlers.HandleRepos)
-	r.Get("/api/github/contributions", handlers.HandleContributions)
+	cfg, err := config.LoadConfig()
+	if err != nil {
+		logger.Error("Ошибка загрузки конфигурации", "error", err)
+		os.Exit(1)
+	}
 
-	r.Handle("/static/*", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
-	r.Handle("/templates/*", http.StripPrefix("/templates/", http.FileServer(http.Dir("templates"))))
+	server := api.NewHTTPServer(cfg)
 
-	log.Println("Listening on http://localhost:8080")
-	log.Fatal(http.ListenAndServe(":8080", r))
+	if !cfg.Prod {
+		go func() {
+			err := http.ListenAndServe(cfg.Server.HTTPAddr, server.Manager.HTTPHandler(nil))
+			if err != nil {
+				logger.Error("Ошибка запуска сервера для редиректа", "error", err)
+				os.Exit(1)
+			}
+		}()
+	}
+
+	gracefulCh := make(chan os.Signal, 1)
+	signal.Notify(gracefulCh, os.Interrupt)
+
+	go func() {
+		if cfg.Prod {
+			logger.Info("Запуск HTTPS сервера", slog.String("addr", cfg.Server.Addr))
+			if err := server.ListenAndServeTLS("", ""); err != http.ErrServerClosed && err != nil {
+				logger.Error("Ошибка запуска HTTPS сервера", "error", err)
+				os.Exit(1)
+			}
+		} else {
+			logger.Info("Запуск HTTP сервера", slog.String("addr", cfg.Server.HTTPAddr))
+			if err := server.ListenAndServe(); err != http.ErrServerClosed && err != nil {
+				logger.Error("Ошибка запуска HTTP сервера", "error", err)
+				os.Exit(1)
+			}
+		}
+	}()
+
+	<-gracefulCh
+
+	logger.Info("Остановка сервера...")
+
+	if err := server.Shutdown(context.Background()); err != nil {
+		logger.Error("Ошибка остановки сервера", "error", err)
+		os.Exit(1)
+	}
+
+	logger.Info("Сервер остановлен")
 }

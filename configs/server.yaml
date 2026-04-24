@@ -1,0 +1,8 @@
+server:
+  addr: ":8080"
+  httpAddr: ":80"
+  readTimeout: "5s"
+  writeTimeout: "10s"
+  idleTimeout: "15s"
+  host1: "tyupin-dev.ru"
+  host2: "www.tyupin-dev.ru"
